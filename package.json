@@ -1,0 +1,7 @@
+{
+	"name": "eventjs",
+	"version": "1.0.0",
+	"description": "JS event emitter/listener system",
+	"main": "event.js",
+	"license": "Public domain"
+}
