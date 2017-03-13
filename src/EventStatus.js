@@ -1,0 +1,6 @@
+export const OK = 'Ok'
+export const STATUS_PROCESSED = 'Processed'
+export const STATUS_QUEUED = 'Queued'
+export const ERROR_BAD_LISTENER = 'Listener is nil'
+export const ERROR_LISTENER_ALREADY_BINDED = 'Listener is already binded'
+export const ERROR_LISTENER_NOT_BINDED = 'Listener is not binded'

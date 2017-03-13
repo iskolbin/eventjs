@@ -1,25 +1,4 @@
-/* 
- 
- eventjs -- v0.5.0 public domain JS event emitting/listening
- no warranty implied; use at your own risk
-
- author: Ilya Kolbin (iskolbin@gmail.com)
- url: github.com/iskolbin/ratio
-
- LICENSE
-
- This software is dual-licensed to the public domain and under the following
- license: you are granted a perpetual, irrevocable license to copy, modify,
- publish, and distribute this file as you see fit.
-
-*/
-
-export const OK = 'Ok'
-export const STATUS_PROCESSED = 'Processed'
-export const STATUS_QUEUED = 'Queued'
-export const ERROR_BAD_LISTENER = 'Listener is nil'
-export const ERROR_LISTENER_ALREADY_BINDED = 'Listener is already binded'
-export const ERROR_LISTENER_NOT_BINDED = 'Listener is not binded'
+import * as EventStatus from './EventStatus.js'
 
 export class EventPool {
 	constructor() {
@@ -36,13 +15,13 @@ export class EventPool {
 				if ( !listeners.has( listener )) {
 					listeners.add( listener )
 				} else {
-					return ERROR_LISTENER_ALREADY_BINDED
+					return EventStatus.ERROR_LISTENER_ALREADY_BINDED
 				}
 			}
 		} else {
-			return ERROR_BAD_LISTENER
+			return EventStatus.ERROR_BAD_LISTENER
 		}
-		return OK
+		return EventStatus.OK
 	}
 
 	unbind( source, listener ) {
@@ -54,12 +33,12 @@ export class EventPool {
 					this.listeners.delete( source )
 				}
 			} else {
-				return ERROR_LISTENER_NOT_BINDED
+				return EventStatus.ERROR_LISTENER_NOT_BINDED
 			}
 		} else {
-			return ERROR_BAD_LISTENER
+			return EventStatus.ERROR_BAD_LISTENER
 		}
-		return OK
+		return EventStatus.OK
 	}
 
 	notify( source, message, ...args ) {
@@ -82,17 +61,10 @@ export class EventPool {
 				this.notify.apply( this, queue[processed] ) 
 			}
 			queue.splice( 0 )
-			return STATUS_PROCESSED
+			return EventStatus.STATUS_PROCESSED
 		} else {
 			queue.push( [source, message, ...args] )
-			return STATUS_QUEUED
+			return EventStatus.STATUS_QUEUED
 		}
 	}
 }
-
-const defaultPool = new EventPool()
-
-export const bind   = ( s, l ) => defaultPool.bind( s, l )
-export const unbind = ( s, l ) => defaultPool.unbind( s, l )
-export const notify = ( s, m, ...args ) => defaultPool.notify( s, m, ...args )
-export const emit   = ( s, m, ...args ) => defaultPool.emit( s, m, ...args )

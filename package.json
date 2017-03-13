@@ -1,7 +1,42 @@
 {
-	"name": "eventjs",
-	"version": "1.0.0",
-	"description": "JS event emitter/listener system",
-	"main": "event.js",
-	"license": "Public domain"
+  "name": "event.js",
+  "version": "0.8.0",
+  "description": "Lightweight event emit/listen library",
+  "author": "Ilya Kolbin",
+  "contributors": [
+    "Kolbin Ilya <iskolbin@gmail.com>"
+  ],
+  "main": "./lib/index.js",
+  "homepage": "http://iskolbin.github.io/js#eventjs",
+  "bugs": "https://github.com/iskolbin/eventjs/issues",
+  "license": "Public domain",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iskolbin/eventjs.git"
+  },
+  "scripts": {
+    "prestart": "npm run clean",
+    "test": "floss --path test/index.js",
+    "test:debug": "npm test -- --debug",
+    "lib": "babel src --out-dir lib -s",
+    "publish:patch": "npm version patch && npm publish",
+    "publish:minor": "npm version minor && npm publish",
+    "publish:major": "npm version major && npm publish",
+    "postversion": "npm run clean && npm run build && npm run lib && npm test",
+    "postpublish": "git push && git push --tags"
+  },
+  "files": [
+    "lib/",
+    "package.json",
+    "README.md"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-plugin-static-fs": "^1.1.0",
+    "babel-plugin-version-inline": "^1.0.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babelify": "^7.3.0"
+  }
 }
