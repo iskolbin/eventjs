@@ -1,3 +1,4 @@
+dist/*
 lib/*
 *.log
 node_modules*
